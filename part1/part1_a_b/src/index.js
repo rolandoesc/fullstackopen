@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import ReactDOM from 'react-dom'
 const Header = (props) => (
   <>
@@ -28,7 +28,13 @@ const Total = (props) => (
     </p>
   </>
 )
-const App = () => {
+const App = (props) => {
+  const [counter, setCounter] = useState(0)
+  const setToValue = (value) => setCounter(value)
+  const Display = ({counter}) => <div>{counter}</div>
+  const Button = ({ onClick, text }) => (
+    <button onClick={onClick}> { text } </button>
+  )
   const course = {
     name: 'Half Stack application development',
     parts: [
@@ -56,6 +62,10 @@ const App = () => {
       <Total 
         parts={course['parts']}
       />
+      <Display counter={counter}/>
+      <Button onClick={() => setToValue(counter + 1)} text='plus'/>
+      <Button onClick={() => setToValue(counter - 1)} text='minus'/>
+      <Button onClick={() => setToValue(0)} text='zero'/>
     </div>
   )
 }
